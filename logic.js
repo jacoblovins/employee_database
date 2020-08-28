@@ -24,11 +24,10 @@ connection.connect(function(err) {
 
 async function init() {
     const whatToDO = await inquirer.prompt(questions.initialQuest);
-    console.log(whatToDO);
 
     if(whatToDO.what === "add employee"){
-        questions.choices.roleChoices.push(queries.allPeopleSearch())
-        questions.choices.peopleChoices.push("something else1", "something else");
+        questions.choices.peopleChoices.push(queries.allPeopleSearch())
+        questions.choices.roleChoices.push(queries.allRoleSearch());
         const chosenEmployee = await inquirer.prompt(questions.addEmployeeQuestions)
     }
 }
