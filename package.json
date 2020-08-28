@@ -1,0 +1,23 @@
+{
+  "name": "employee_database",
+  "version": "1.0.0",
+  "description": "",
+  "main": "logic.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacoblovins/employee_database.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jacoblovins/employee_database/issues"
+  },
+  "homepage": "https://github.com/jacoblovins/employee_database#readme",
+  "dependencies": {
+    "inquirer": "^7.3.3"
+  }
+}
