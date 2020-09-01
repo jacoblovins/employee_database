@@ -1,25 +1,31 @@
-function allPeopleSearch() {
+const connection = require("./connect")
+
+const allPeopleSearch = () => {
     var query = "SELECT * FROM employees";
-    connection.query(query, function (err, res) {
-        if (err) throw err;
-        const allEmployees = res.map(data => data.first_name + " " + data.last_name)
-        // console.log(allEmployees);
-        return allEmployees;
-    });
+    return connection.query(query);
 }
 
-function allRoleSearch() {
+const allRoleSearch = () => {
     var query = "SELECT * FROM roles";
-    connection.query(query, function (err, res) {
-        if (err) throw err;
-        const allRoles = res.map(data => data.title)
-        // console.log(allRoles);
-        return allRoles;
-    });
+    return connection.query(query);
 }
 
-module.exports =
-{
-    allPeopleSearch,
-    allRoleSearch
+const allManagerSearch = () => {
+    var query = "SELECT * FROM employees WHERE is_manager = 1";
+    return connection.query(query);
 }
+
+const addEmployee = () => {
+    var query = "INSERT INTO employees (first_name, last_name, manager_id) VALUES ('Jacob', 'Lovins', 4, 14, false);";
+    return connection.query(query);
+}
+
+
+module.exports = {
+    allPeopleSearch,
+    allRoleSearch,
+    allManagerSearch,
+    addEmployee
+
+}
+

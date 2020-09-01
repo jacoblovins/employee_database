@@ -45,7 +45,7 @@ const addEmployeeQuestions = [
         type: "list",
         name: "employeeManager",
         message: "Assign employee to a manager.",
-        choices: choices.peopleChoices
+        choices: choices.managerChoices
     }
 ]
 

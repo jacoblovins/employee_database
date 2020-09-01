@@ -1,33 +1,26 @@
 const inquirer = require("inquirer")
 const questions = require("./questions")
-const mysql = require("mysql");
 const queries = require("./queries")
 
-const connection = mysql.createConnection({
-  host: "localhost",
-
-  // Your port; if not 3306
-  port: 3306,
-
-  // Your username
-  user: "root",
-
-  // Your password
-  password: "docker123",
-  database: "employee_tracker"
-});
-
-connection.connect(function(err) {
-  if (err) throw err;
-  init();
-});
 
 async function init() {
-    const whatToDO = await inquirer.prompt(questions.initialQuest);
+  const whatToDO = await inquirer.prompt(questions.initialQuest);
+  questions.choices.roleChoices.splice(0);
+  questions.choices.managerChoices.splice(0);
+  questions.choices.managerChoices.push("N/A");
 
-    if(whatToDO.what === "add employee"){
-        questions.choices.peopleChoices.push(queries.allPeopleSearch())
-        questions.choices.roleChoices.push(queries.allRoleSearch());
-        const chosenEmployee = await inquirer.prompt(questions.addEmployeeQuestions)
-    }
+  if (whatToDO.what === "add employee") {
+    const allRoles = await queries.allRoleSearch();
+    allRoles.forEach(element => {
+      questions.choices.roleChoices.push(element.title);
+    });
+    const allManagers = await queries.allManagerSearch();
+    await allManagers.forEach(element => {
+      questions.choices.managerChoices.push(element.first_name + " " + element.last_name)
+    });
+    const newEmployee = await inquirer.prompt(questions.addEmployeeQuestions)
+    console.log(newEmployee.firstname)
+  }
 }
+init()
+
