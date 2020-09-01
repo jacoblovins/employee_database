@@ -2,7 +2,7 @@
 const choices = {
     peopleChoices: [],
     roleChoices: [],
-    managerChoices: []
+    managerChoices: ["N/A"]
 }
 
 const initialQuest = [
@@ -20,7 +20,8 @@ const initialQuest = [
                 "update employee manager",
                 "view all roles",
                 "add role",
-                "remove role"]
+                "remove role",
+                "EXIT"]
     }
 ]
 
@@ -45,7 +46,7 @@ const addEmployeeQuestions = [
         type: "list",
         name: "employeeManager",
         message: "Assign employee to a manager.",
-        choices: choices.managerChoices
+        choices: ["N/A", "Michael Scott", "Jim Halpert"]
     }
 ]
 
@@ -59,19 +60,37 @@ const removeEmployeeQuestion =
         }
     ]
 
+const employeeByDepartment = [
+    {
+        type: "list",
+        name: "department",
+        message: "Which department's team would you like to search?",
+        choices: ["Sales", "Engineering", "Finance", "Legal"]
+    }
+]
+
+const employeeByManager = [
+    {
+        type: "list",
+        name: "manager",
+        message: "Which Manager's team would you like to search?",
+        choices: ["Michael Scott", "Jim Halpert"]
+    }
+]
+
 const updateManager =
     [
         {
             type: "list",
-            name: "updateManagerEmployee",
+            name: "employee",
             message: "Which employee do you want to update?",
             choices: choices.peopleChoices
         },
         {
             type: "list",
-            name: "updateRole",
+            name: "manager",
             message: "Which manager do you want the employee to have?",
-            choices: choices.managerChoices
+            choices: ["Michael Scott", "Jim Halpert"]
         }
     ]
 
@@ -85,7 +104,7 @@ const updateRole =
         },
         {
             type: "list",
-            name: "updateRole",
+            name: "role",
             message: "Which role do you want the employee to have?",
             choices: choices.roleChoices
         }
@@ -118,5 +137,7 @@ module.exports = {
     updateRole,
     addRole,
     removeRole,
-    choices
+    choices,
+    employeeByDepartment,
+    employeeByManager
 };

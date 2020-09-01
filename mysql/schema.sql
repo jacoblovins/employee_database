@@ -17,7 +17,6 @@ CREATE TABLE roles (
   title VARCHAR(30) NULL,
   salary INT NULL,
   department_id INT NOT NULL,
-  is_manager BOOLEAN,
   PRIMARY KEY (id),
   FOREIGN KEY (department_id) REFERENCES departments(id)
 );
