@@ -7,9 +7,9 @@ USE employee_tracker;
 
 /* Create new table */
 CREATE TABLE departments (
-  id INT NOT NULL,
+  dptid INT NOT NULL,
   department_name VARCHAR(30) NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (dptid)
 );
 
 CREATE TABLE roles (
@@ -18,7 +18,7 @@ CREATE TABLE roles (
   salary INT NULL,
   department_id INT NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (department_id) REFERENCES departments(id)
+  FOREIGN KEY (department_id) REFERENCES departments(dptid)
 );
 
 CREATE TABLE employees (

@@ -1,14 +1,14 @@
 -- Departments
-INSERT INTO departments (id, department_name)
+INSERT INTO departments (dptid, department_name)
 VALUES (1, "Sales");
 
-INSERT INTO departments (id, department_name)
+INSERT INTO departments (dptid, department_name)
 VALUES (2, "Engineering");
 
-INSERT INTO departments (id, department_name)
+INSERT INTO departments (dptid, department_name)
 VALUES (3, "Finance");
 
-INSERT INTO departments (id, department_name)
+INSERT INTO departments (dptid, department_name)
 VALUES (4, "Legal");
 
 -- Roles
@@ -41,9 +41,6 @@ INSERT INTO employees (first_name, last_name, role_id, is_manager)
 VALUES ("Jim", "Halpert", 1, true);
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id, is_manager)
-VALUES ("Jacob", "Lovins", 4, 2, false);
-
-INSERT INTO employees (first_name, last_name, role_id, manager_id, is_manager)
 VALUES ("Dwight", "Shrute", 2, 1, false);
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id, is_manager)
@@ -59,16 +56,10 @@ INSERT INTO employees (first_name, last_name, role_id, manager_id, is_manager)
 VALUES ("Andy", "Bernard", 2, 1, false);
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id, is_manager)
-VALUES ("Ryan", "Howard", 7, 1, false);
-
-INSERT INTO employees (first_name, last_name, role_id, manager_id, is_manager)
 VALUES ("Kevin", "Malone", 5, 2, false);
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id, is_manager)
 VALUES ("Phyllis", "Vance", 2, 1, false);
-
-INSERT INTO employees (first_name, last_name, role_id, manager_id, is_manager)
-VALUES ("Meredith", "Palmer", 2, 1, false);
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id, is_manager)
 VALUES ("Oscar", "Martinez", 5, 2, false);
@@ -84,6 +75,3 @@ VALUES ("Toby", "Flenderson", 7, 1, false);
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id, is_manager)
 VALUES ("Darryl", "Philbin", 4, 2, false);
-
-INSERT INTO employees (first_name, last_name, role_id, manager_id, is_manager)
-VALUES ("Erin", "Hannon", 4, 2, false);

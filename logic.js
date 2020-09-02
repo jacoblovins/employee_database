@@ -100,7 +100,7 @@ async function init() {
   } else if (whatToDO.what === "add role") {
     const allDepartments = await queries.allDepartmentSearch();
     await allDepartments.forEach(element => {
-      questions.choices.dptChoices.push(element.id + " " + element.department_name);
+      questions.choices.dptChoices.push(element.dptid + " " + element.department_name);
     });
     const addRoleQuestion = await inquirer.prompt(questions.addRoleQuestions);
     const role = addRoleQuestion.role;
@@ -124,7 +124,7 @@ async function init() {
   } else if (whatToDO.what === "add department") {
     const allDepartments = await queries.allDepartmentSearch();
     const lastDpt = allDepartments.slice(-1)[0];
-    const dptID = lastDpt.id + 1;
+    const dptID = lastDpt.dptid + 1;
     const addDptQuestion = await inquirer.prompt(questions.addDepartment);
     const department = addDptQuestion.department;
     queries.addDpt(dptID, department);
