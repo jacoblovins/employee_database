@@ -6,18 +6,28 @@ const allPeopleSearch = () => {
     return connection.query(query);
 }
 
+const allRoleSearch = () => {
+    const query = "SELECT roles.id, roles.title, roles.salary, departments.department_name FROM roles LEFT JOIN departments ON roles.department_id = departments.dptid";
+    return connection.query(query);
+}
+
 const allDepartmentSearch = () => {
     const query = "SELECT * FROM departments";
     return connection.query(query);
 }
 
+const allManagerSearch = () => {
+    const query = "SELECT * FROM employees WHERE is_manager = 1";
+    return connection.query(query);
+}
+
 const viewAllEmployees = () => {
-    const query = "SELECT employees.id, employees.first_name, employees.last_name, roles.title, departments.department_name, roles.salary, CONCAT(manager.first_name, ' ', manager.last_name) as manager FROM employees LEFT JOIN roles ON employees.role_id=roles.id LEFT JOIN departments ON roles.department_id=departments.id LEFT JOIN employees manager ON employees.manager_id=manager.id";
+    const query = "SELECT employees.id, employees.first_name, employees.last_name, roles.title, roles.salary, departments.department_name, CONCAT(manager.first_name, ' ', manager.last_name) as manager FROM employees LEFT JOIN roles ON employees.role_id=roles.id LEFT JOIN departments ON roles.department_id = departments.dptid LEFT JOIN employees manager ON employees.manager_id=manager.id";
     return connection.query(query);
 }
 
 const viewEmployeesByDepartment = (department) => {
-    const query = "SELECT employees.id, employees.first_name, employees.last_name, roles.title, departments.department_name, roles.salary, CONCAT(manager.first_name, ' ', manager.last_name) as manager FROM employees LEFT JOIN roles ON employees.role_id=roles.id LEFT JOIN departments ON roles.department_id=departments.id LEFT JOIN employees manager ON employees.manager_id=manager.id WHERE departments.department_name = ?";
+    const query = "SELECT employees.id, employees.first_name, employees.last_name, roles.title, roles.salary, departments.department_name, CONCAT(manager.first_name, ' ', manager.last_name) as manager FROM employees LEFT JOIN roles ON employees.role_id=roles.id LEFT JOIN departments ON roles.department_id=departments.id LEFT JOIN employees manager ON employees.manager_id=manager.id WHERE departments.department_name = ?";
     const dptName = [department]
     return connection.query(query, dptName);
 }
@@ -39,6 +49,21 @@ const addEmployee = (firstname, lastname, roleID, isManager, managerID) => {
     return connection.query(query, [values]);
 }
 
+const addRole = (role, salary, department) => {
+    const dptArr = department.split(" ")
+    const roleArr = [role, salary, parseInt(dptArr[0])]
+    const query = "INSERT INTO roles (title, salary, department_id) VALUES (?)";
+    return connection.query(query, [roleArr]);
+}
+
+const addDpt = (id, department) => {
+    const dptID = id
+    const dpt = department
+    const addArr = [dptID, dpt]
+    const query = "INSERT INTO departments (id, department_name) VALUES (?)";
+    return connection.query(query, [addArr]);
+}
+
 const removeEmployee = (remove) => {
     const name = remove.split(" ")
     const query = "DELETE FROM employees WHERE first_name = ? AND last_name = ?";
@@ -50,7 +75,12 @@ const removeRole = (role) => {
     return connection.query(query, [role]);
 }
 
-const updateRoleQuery = (roleEmployee, roleChoice) => {
+const removeDepartment = (department) => {
+    const query = "DELETE FROM departments WHERE department_name = ?";
+    return connection.query(query, department);
+}
+
+const updateRole = (roleEmployee, roleChoice) => {
     const roleArr = roleChoice.split(" ")
     const empArr = roleEmployee.split(" ")
     const query = "UPDATE employees SET role_id = ? WHERE first_name = ? AND last_name = ?";
@@ -58,7 +88,7 @@ const updateRoleQuery = (roleEmployee, roleChoice) => {
     return connection.query(query, roleParams);
 }
 
-const updateManagerQuery = (manager, employee) => {
+const updateManager = (manager, employee) => {
     let id;
     if(manager === "Michael Scott"){
         id = 1
@@ -71,36 +101,6 @@ const updateManagerQuery = (manager, employee) => {
     return connection.query(query, managerParams);
 }
 
-const addRoleQuery = (role, salary, department) => {
-    const dptArr = department.split(" ")
-    const roleArr = [role, salary, parseInt(dptArr[0])]
-    const query = "INSERT INTO roles (title, salary, department_id) VALUES (?)";
-    return connection.query(query, [roleArr]);
-}
-
-const allRoleSearch = () => {
-    const query = "SELECT * FROM roles LEFT JOIN departments ON roles.department_id=departments.id";
-    return connection.query(query);
-}
-
-const allManagerSearch = () => {
-    const query = "SELECT * FROM employees WHERE is_manager = 1";
-    return connection.query(query);
-}
-
-const addDptQuery = (department) => {
-    const dpt = department
-    const query = "INSERT INTO departments (department_name) VALUES (?)";
-    return connection.query(query, dpt);
-}
-
-const removeDepartment = (department) => {
-    const query = "DELETE FROM departments WHERE department_name = ?";
-    return connection.query(query, department);
-}
-
-
-
 module.exports = {
     allPeopleSearch,
     allRoleSearch,
@@ -110,13 +110,12 @@ module.exports = {
     viewEmployeesByDepartment,
     viewEmployeesByManager,
     removeEmployee,
-    updateRoleQuery,
-    updateManagerQuery,
-    addRoleQuery,
+    updateRole,
+    updateManager,
+    addRole,
     allDepartmentSearch,
     removeRole,
-    addDptQuery,
+    addDpt,
     removeDepartment
-
 }
 

@@ -1,7 +1,6 @@
 const choices = {
     peopleChoices: [],
     roleChoices: [],
-    managerChoices: ["N/A"],
     dptChoices: []
 }
 

@@ -12,6 +12,7 @@ async function init() {
   const whatToDO = await inquirer.prompt(questions.initialQuest);
   questions.choices.roleChoices.splice(0);
   questions.choices.peopleChoices.splice(0);
+  questions.choices.dptChoices.splice(0);
 
   if (whatToDO.what === "view all employees") {
     const allPeople = await queries.viewAllEmployees();
@@ -58,7 +59,7 @@ async function init() {
     });
     const removeChoice = await inquirer.prompt(questions.removeEmployeeQuestion);
     const remove = removeChoice.remove;
-    const removeEmployee = await queries.removeEmployee(remove);
+    queries.removeEmployee(remove);
     await console.log("Employee Removed!!");
     init()
 
@@ -74,7 +75,7 @@ async function init() {
     const roleQuestion = await inquirer.prompt(questions.updateRole);
     const roleEmployee = roleQuestion.updateRoleEmployee;
     const roleChoice = roleQuestion.role
-    const removeEmployee = await queries.updateRoleQuery(roleEmployee, roleChoice);
+    queries.updateRole(roleEmployee, roleChoice);
     await console.log("Employee Role Changed!!");
     init()
 
@@ -86,7 +87,7 @@ async function init() {
     const managerQuestion = await inquirer.prompt(questions.updateManager);
     const employee = managerQuestion.employee;
     const manager = managerQuestion.manager
-    const updateManager = await queries.updateManagerQuery(manager, employee);
+    queries.updateManager(manager, employee);
     await console.log("Employee Manager Changed!!");
     init()
 
@@ -105,7 +106,7 @@ async function init() {
     const role = addRoleQuestion.role;
     const salary = parseInt(addRoleQuestion.salary);
     const department = addRoleQuestion.department;
-    queries.addRoleQuery(role, salary, department);
+    queries.addRole(role, salary, department);
     console.log("Role Added!");
     init()
 
@@ -121,9 +122,12 @@ async function init() {
     init()
 
   } else if (whatToDO.what === "add department") {
+    const allDepartments = await queries.allDepartmentSearch();
+    const lastDpt = allDepartments.slice(-1)[0];
+    const dptID = lastDpt.id + 1;
     const addDptQuestion = await inquirer.prompt(questions.addDepartment);
     const department = addDptQuestion.department;
-    queries.addDptQuery(department);
+    queries.addDpt(dptID, department);
     console.log("Department Added!");
     init()
 
