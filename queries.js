@@ -6,6 +6,11 @@ const allPeopleSearch = () => {
     return connection.query(query);
 }
 
+const allDepartmentSearch = () => {
+    const query = "SELECT * FROM departments";
+    return connection.query(query);
+}
+
 const viewAllEmployees = () => {
     const query = "SELECT employees.id, employees.first_name, employees.last_name, roles.title, departments.department_name, roles.salary, CONCAT(manager.first_name, ' ', manager.last_name) as manager FROM employees LEFT JOIN roles ON employees.role_id=roles.id LEFT JOIN departments ON roles.department_id=departments.id LEFT JOIN employees manager ON employees.manager_id=manager.id";
     return connection.query(query);
@@ -40,6 +45,11 @@ const removeEmployee = (remove) => {
     return connection.query(query, name);
 }
 
+const removeRole = (role) => {
+    const query = "DELETE FROM roles WHERE title = ?";
+    return connection.query(query, [role]);
+}
+
 const updateRoleQuery = (roleEmployee, roleChoice) => {
     const roleArr = roleChoice.split(" ")
     const empArr = roleEmployee.split(" ")
@@ -61,6 +71,13 @@ const updateManagerQuery = (manager, employee) => {
     return connection.query(query, managerParams);
 }
 
+const addRoleQuery = (role, salary, department) => {
+    const dptArr = department.split(" ")
+    const roleArr = [role, salary, parseInt(dptArr[0])]
+    const query = "INSERT INTO roles (title, salary, department_id) VALUES (?)";
+    return connection.query(query, [roleArr]);
+}
+
 const allRoleSearch = () => {
     const query = "SELECT * FROM roles LEFT JOIN departments ON roles.department_id=departments.id";
     return connection.query(query);
@@ -69,6 +86,17 @@ const allRoleSearch = () => {
 const allManagerSearch = () => {
     const query = "SELECT * FROM employees WHERE is_manager = 1";
     return connection.query(query);
+}
+
+const addDptQuery = (department) => {
+    const dpt = department
+    const query = "INSERT INTO departments (department_name) VALUES (?)";
+    return connection.query(query, dpt);
+}
+
+const removeDepartment = (department) => {
+    const query = "DELETE FROM departments WHERE department_name = ?";
+    return connection.query(query, department);
 }
 
 
@@ -83,7 +111,12 @@ module.exports = {
     viewEmployeesByManager,
     removeEmployee,
     updateRoleQuery,
-    updateManagerQuery
+    updateManagerQuery,
+    addRoleQuery,
+    allDepartmentSearch,
+    removeRole,
+    addDptQuery,
+    removeDepartment
 
 }
 

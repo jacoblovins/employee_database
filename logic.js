@@ -15,21 +15,25 @@ async function init() {
 
   if (whatToDO.what === "view all employees") {
     const allPeople = await queries.viewAllEmployees();
+    console.log('\n', "<-------------------------------------------------------------------->", '\n')
     console.table(allPeople)
+    init()
 
   } else if (whatToDO.what === "view all employees by department") {
     const departmentChoice = await inquirer.prompt(questions.employeeByDepartment);
     const department = departmentChoice.department;
-    console.log(department)
     const departmentEmployees = await queries.viewEmployeesByDepartment(department);
+    console.log('\n', "<-------------------------------------------------------------------->", '\n')
     await console.table(departmentEmployees);
+    init()
 
   } else if (whatToDO.what === "view all employees by manager") {
     const managerChoice = await inquirer.prompt(questions.employeeByManager);
     const manager = managerChoice.manager;
-    console.log(manager)
     const managerEmployees = await queries.viewEmployeesByManager(manager);
+    console.log('\n', "<-------------------------------------------------------------------->", '\n')
     await console.table(managerEmployees);
+    init()
 
   } else if (whatToDO.what === "add employee") {
     const allRoles = await queries.allRoleSearch();
@@ -45,6 +49,7 @@ async function init() {
     }
     queries.addEmployee(newEmployee.firstname, newEmployee.lastname, roleID, isManager, managerID);
     console.log("Employee Added!")
+    init()
 
   } else if (whatToDO.what === "remove employee") {
     const allPpl = await queries.allPeopleSearch();
@@ -53,9 +58,9 @@ async function init() {
     });
     const removeChoice = await inquirer.prompt(questions.removeEmployeeQuestion);
     const remove = removeChoice.remove;
-    console.log(remove)
     const removeEmployee = await queries.removeEmployee(remove);
     await console.log("Employee Removed!!");
+    init()
 
   } else if (whatToDO.what === "update employee role") {
     const allPpl = await queries.allPeopleSearch();
@@ -69,10 +74,9 @@ async function init() {
     const roleQuestion = await inquirer.prompt(questions.updateRole);
     const roleEmployee = roleQuestion.updateRoleEmployee;
     const roleChoice = roleQuestion.role
-    console.log(roleEmployee)
-    console.log(roleChoice)
     const removeEmployee = await queries.updateRoleQuery(roleEmployee, roleChoice);
     await console.log("Employee Role Changed!!");
+    init()
 
   } else if (whatToDO.what === "update employee manager") {
     const allPpl = await queries.allPeopleSearch();
@@ -82,18 +86,67 @@ async function init() {
     const managerQuestion = await inquirer.prompt(questions.updateManager);
     const employee = managerQuestion.employee;
     const manager = managerQuestion.manager
-    console.log(employee)
-    console.log(manager)
     const updateManager = await queries.updateManagerQuery(manager, employee);
     await console.log("Employee Manager Changed!!");
+    init()
 
   } else if (whatToDO.what === "view all roles") {
     const allRoles = await queries.allRoleSearch();
+    console.log('\n', "<-------------------------------------------------------------------->", '\n')
     console.table(allRoles)
+    init()
 
+  } else if (whatToDO.what === "add role") {
+    const allDepartments = await queries.allDepartmentSearch();
+    await allDepartments.forEach(element => {
+      questions.choices.dptChoices.push(element.id + " " + element.department_name);
+    });
+    const addRoleQuestion = await inquirer.prompt(questions.addRoleQuestions);
+    const role = addRoleQuestion.role;
+    const salary = parseInt(addRoleQuestion.salary);
+    const department = addRoleQuestion.department;
+    queries.addRoleQuery(role, salary, department);
+    console.log("Role Added!");
+    init()
+
+  } else if (whatToDO.what === "remove role") {
+    const allRoles = await queries.allRoleSearch();
+    allRoles.forEach(element => {
+      questions.choices.roleChoices.push(element.title);
+    });
+    const removeRoleQuestion = await inquirer.prompt(questions.removeRole);
+    const role = removeRoleQuestion.removeRole
+    queries.removeRole(role);
+    console.log("Role Removed!")
+    init()
+
+  } else if (whatToDO.what === "add department") {
+    const addDptQuestion = await inquirer.prompt(questions.addDepartment);
+    const department = addDptQuestion.department;
+    queries.addDptQuery(department);
+    console.log("Department Added!");
+    init()
+
+  } else if (whatToDO.what === "remove department") {
+    const allDepartments = await queries.allDepartmentSearch();
+    await allDepartments.forEach(element => {
+      questions.choices.dptChoices.push(element.department_name);
+    });
+    const removeDptQuestion = await inquirer.prompt(questions.removeDepartment);
+    const department = removeDptQuestion.removeDepartment
+    queries.removeDepartment(department);
+    console.log("Department Removed!")
+    init()
+
+  } else if (whatToDO.what === "view all departments") {
+    const allDpts = await queries.allDepartmentSearch();
+    console.log('\n', "<-------------------------------------------------------------------->", '\n')
+    console.table(allDpts)
+    init()
+
+  } else {
+    connection.end();
   }
-
-  connection.end();
 }
 init()
 

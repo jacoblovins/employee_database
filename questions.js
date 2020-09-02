@@ -1,8 +1,8 @@
-// const allQuestions = (questionChoices) => {
 const choices = {
     peopleChoices: [],
     roleChoices: [],
-    managerChoices: ["N/A"]
+    managerChoices: ["N/A"],
+    dptChoices: []
 }
 
 const initialQuest = [
@@ -14,13 +14,16 @@ const initialQuest = [
             ["view all employees",
                 "view all employees by department",
                 "view all employees by manager",
+                "view all roles",
+                "view all departments",
                 "add employee",
+                "add role",
+                "add department",
                 "remove employee",
+                "remove role",
+                "remove department",
                 "update employee role",
                 "update employee manager",
-                "view all roles",
-                "add role",
-                "remove role",
                 "EXIT"]
     }
 ]
@@ -110,24 +113,56 @@ const updateRole =
         }
     ]
 
-const addRole =
+const addRoleQuestions =
     [
         {
             type: "input",
             name: "role",
             message: "What role would you like to add?"
+        },
+        {
+            type: "input",
+            name: "salary",
+            message: "What is the salary of the role?"
+        },
+        {
+            type: "list",
+            name: "department",
+            message: "What is the department of the role?",
+            choices: choices.dptChoices
         }
     ]
 
 const removeRole =
     [
         {
-            type: "input",
+            type: "list",
             name: "removeRole",
-            message: "What role would you like to remove?"
+            message: "What role would you like to remove?",
+            choices: choices.roleChoices
         }
     ]
-// }
+
+const addDepartment =
+    [
+        {
+            type: "input",
+            name: "department",
+            message: "What department would you like to add?",
+        }
+    ]
+
+const removeDepartment =
+    [
+        {
+            type: "list",
+            name: "removeDepartment",
+            message: "What department would you like to remove?",
+            choices: choices.dptChoices
+        }
+    ]
+
+
 
 module.exports = {
     initialQuest,
@@ -135,9 +170,11 @@ module.exports = {
     removeEmployeeQuestion,
     updateManager,
     updateRole,
-    addRole,
+    addRoleQuestions,
     removeRole,
     choices,
     employeeByDepartment,
-    employeeByManager
+    employeeByManager,
+    addDepartment,
+    removeDepartment
 };

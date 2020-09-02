@@ -1,15 +1,15 @@
 -- Departments
-INSERT INTO departments (id, department_name)
-VALUES (1, "Sales");
+INSERT INTO departments (department_name)
+VALUES ("Sales");
 
-INSERT INTO departments (id, department_name)
-VALUES (2, "Engineering");
+INSERT INTO departments (department_name)
+VALUES ("Engineering");
 
-INSERT INTO departments (id, department_name)
-VALUES (3, "Finance");
+INSERT INTO departments (department_name)
+VALUES ("Finance");
 
-INSERT INTO departments (id, department_name)
-VALUES (4, "Legal");
+INSERT INTO departments (department_name)
+VALUES ("Legal");
 
 -- Roles
 INSERT INTO roles (title, salary, department_id)
