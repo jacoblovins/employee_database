@@ -4,6 +4,9 @@ const queries = require("./queries")
 const connection = require("./connect")
 const table = require("console.table")
 
+console.log('\n', "<-----------------------------Welcome to Your Employee Database--------------------------------------->", '\n')
+  
+
 // Initial function that runs all of the questions when app is ran 
 async function init() {
   let isManager = false
