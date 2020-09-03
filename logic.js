@@ -1,7 +1,7 @@
 const inquirer = require("inquirer")
-const questions = require("./questions")
-const queries = require("./queries")
-const connection = require("./connect")
+const questions = require("./assets/questions.js")
+const queries = require("./assets/queries.js")
+const connection = require("./assets/connect.js")
 const table = require("console.table")
 
 console.log('\n', "<-----------------------------Welcome to Your Employee Database--------------------------------------->", '\n')

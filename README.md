@@ -27,6 +27,12 @@ To install necessary dependencies, run the following command:
 
 ``` npm i ```
 
+## Running
+
+To start running the app, run the following command:
+
+``` npm start ```
+
 
 ## License
 
