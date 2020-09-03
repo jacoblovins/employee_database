@@ -5,7 +5,7 @@
 
 ## Description
 
-This CLI app keeps track of important information needed to keep track of a team of employees. It allows the user to view all employees, view employees by department or manager, view all departments, and view all roles in the business along with each employee's salary. The user can also add or remove employees, roles, and departments, and update which role or manager an employee is assigned to. All information is stored in a database that is easily accessed or changed through the provided questions. This application utilizes MySQL, Node.js, Express.js, Console.table, and much more. The initial MySQL schema and seeds layouts are also provided to get up and running quickly.
+This CMS keeps track of important information needed to keep track of a team of employees from the command line. It allows the user to view all employees, view employees by department or manager, view all departments, and view all roles in the business along with each employee's salary. The user can also add or remove employees, roles, and departments, and update which role or manager an employee is assigned to. All information is stored in a database that is easily accessed or changed through the provided questions. This application utilizes MySQL, Node.js, Express.js, Console.table, and much more. The initial MySQL schema and seeds layouts are also provided to get up and running quickly.
 
 
 ​![Employee Database](assets/images/EmpDatabase.png )
