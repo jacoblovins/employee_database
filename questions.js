@@ -1,9 +1,11 @@
+// Arrays for question choices
 const choices = {
     peopleChoices: [],
     roleChoices: [],
     dptChoices: []
 }
 
+// main question asked when app is run
 const initialQuest = [
     {
         type: "list",
