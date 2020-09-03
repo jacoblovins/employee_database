@@ -16,6 +16,7 @@ This CLI app keeps track of important information needed to keep track of a team
 ## Table of Contents
 
 * [Installation](#installation)
+* [Running](#running)
 * [License](#license)
 * [Questions](#questions)
 
